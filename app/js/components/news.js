@@ -3,7 +3,7 @@ import requestNews from "../services/service-fetch"
 export default class News {
 	constructor(parrentElement) {
 		this.parrentElementDomEl = document.querySelector(parrentElement)
-		this.url = "http://localhost:3000"
+		this.url = "https://ahj-homeworks-workers-back.onrender.com"
 	}
 
 	init() {

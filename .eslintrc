@@ -54,6 +54,6 @@
 				"enforceForRenamedProperties": false
 			}
 		],
-		"no-console": []
+		"no-console": [0]
 	}
 }

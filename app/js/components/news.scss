@@ -45,6 +45,7 @@
 		}
 
 		&-title {
+			position: relative;
 			font-size: 15px;
 			color: grey;
 		}
@@ -57,11 +58,13 @@
 		}
 
 		&-img {
+			position: relative;
 			width: 50px;
 			height: 50px;
 		}
 
 		&-text {
+			position: relative;
 			margin-left: 20px;
 
 			font-size: 13px;

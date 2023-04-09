@@ -1,25 +1,9 @@
-import avatar from "../../layout/assets/img/preview.jpeg"
+import requestNews from "../services/service-fetch"
 
 export default class News {
 	constructor(parrentElement) {
 		this.parrentElementDomEl = document.querySelector(parrentElement)
-		this.newsList = [
-			{
-				title: "Новость 1",
-				img: avatar,
-				text: "Обратите внимание, даже если у пользователя нет подключения, страница всё равно должна отображаться, но в режиме 'загрузки' и после неудачной попытки соединения переходить в режим:"
-			},
-			{
-				title: "Новость 2",
-				img: avatar,
-				text: "Реализуйте подобный интерфейс, закешировав статические ресурсы и показывая данный внешний вид до момента загрузки данных"
-			},
-			{
-				title: "Новость 3",
-				img: avatar,
-				text: "Реализуйте подобный интерфейс, закешировав статические ресурсы и показывая данный внешний вид до момента загрузки данных"
-			}
-		]
+		this.url = "http://localhost:3000"
 	}
 
 	init() {
@@ -35,9 +19,18 @@ export default class News {
 
 		this.newsListDomEl = this.newsDomEl.querySelector(".news__content")
 
-		this.newsList.forEach(elem => this.createNewsItem(elem))
-
 		this.parrentElementDomEl.appendChild(this.newsDomEl)
+
+		this.renderAllNews()
+		this.addEvent()
+	}
+
+	async renderAllNews() {
+		this.newsListDomEl.innerHTML = ""
+
+		this.newsList = await requestNews(`${this.url}/news`)
+
+		this.newsList.forEach(elem => this.createNewsItem(elem))
 	}
 
 	createNewsItem({ img, text, title }) {
@@ -46,7 +39,7 @@ export default class News {
 		newsItemDomEl.innerHTML = `
             <h3 class="news__item-title">${title} </h3>
                 <div class="news__item-content">
-                    <img class="news__item-img" src="${img}" alt="аватар" />
+                    <img class="news__item-img" src="${this.url}/${img}" alt="аватар" />
                     <p class="news__item-text">
                         ${text}
                     </p>
@@ -54,5 +47,9 @@ export default class News {
         `
 
 		this.newsListDomEl.appendChild(newsItemDomEl)
+	}
+
+	addEvent() {
+		this.newsDomEl.querySelector(".news__reload").addEventListener("click", () => this.renderAllNews())
 	}
 }

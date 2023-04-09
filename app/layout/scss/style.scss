@@ -4,4 +4,13 @@
 @import "./global/global";
 @import "./global/animation";
 
+//?Components
+@import "../../js/components/news.scss";
+//?Compomnents-end
+
+.content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 @import "./global/media";

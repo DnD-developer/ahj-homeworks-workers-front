@@ -26,11 +26,15 @@ export default class News {
 	}
 
 	async renderAllNews() {
-		this.newsListDomEl.innerHTML = ""
-
-		this.newsList = await requestNews(`${this.url}/news`)
-
-		this.newsList.forEach(elem => this.createNewsItem(elem))
+		this.renderPopupLoad()
+		try {
+			this.newsList = await requestNews(`${this.url}/news`)
+			this.newsListDomEl.innerHTML = ""
+			this.newsList.forEach(elem => this.createNewsItem(elem))
+		} catch (error) {
+			this.newsList = []
+			this.renderPopupError()
+		}
 	}
 
 	createNewsItem({ img, text, title }) {
@@ -47,6 +51,37 @@ export default class News {
         `
 
 		this.newsListDomEl.appendChild(newsItemDomEl)
+	}
+
+	renderPopupLoad() {
+		this.newsListDomEl.innerHTML = ""
+
+		for (let index = 0; index < 3; index += 1) {
+			const loadItemDomEl = document.createElement("li")
+			loadItemDomEl.classList.add("load-item")
+			loadItemDomEl.innerHTML = `
+            <div class="load-item__title"></div>
+                <div class="load-item__content">
+                    <div class="load-item__img"></div>
+                    <div class="load-item__text">
+						<div class="load-item__text-up"></div>
+						<div class="load-item__text-bottom"></div>
+                    </div>
+                </div>
+        `
+
+			this.newsListDomEl.appendChild(loadItemDomEl)
+		}
+	}
+
+	renderPopupError() {
+		const errorPopupDomEl = document.createElement("div")
+		errorPopupDomEl.classList.add("error-popup")
+		errorPopupDomEl.innerHTML = `
+			<h2 class="error-popup__title">Не удалось загрузить данные. Проверьте подключение и обновите страницу</h2>
+		`
+
+		this.newsDomEl.appendChild(errorPopupDomEl)
 	}
 
 	addEvent() {

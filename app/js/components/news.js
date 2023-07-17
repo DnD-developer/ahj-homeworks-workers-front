@@ -23,6 +23,7 @@ export default class News {
 
 		this.renderAllNews()
 		this.addEvent()
+		this.connectWorker()
 	}
 
 	async renderAllNews() {
@@ -34,6 +35,19 @@ export default class News {
 		} catch (error) {
 			this.newsList = []
 			this.renderPopupError()
+		}
+	}
+
+	connectWorker() {
+		if (navigator.serviceWorker) {
+			window.addEventListener("load", async () => {
+				try {
+					await navigator.serviceWorker.register("../services/service-worker.js", { scope: "./" })
+					console.log("Service worker is register!")
+				} catch (e) {
+					console.log(e)
+				}
+			})
 		}
 	}
 

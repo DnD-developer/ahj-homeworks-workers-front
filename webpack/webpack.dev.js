@@ -1,5 +1,4 @@
 const { merge } = require("webpack-merge")
-const webpack = require("webpack")
 const webpackConfig = require("./webpack.config")
 
 const devWebpackconfig = merge(webpackConfig, {
@@ -67,13 +66,7 @@ const devWebpackconfig = merge(webpackConfig, {
 				}
 			}
 		]
-	},
-	devtool: "eval-cheap-module-source-map",
-	plugins: [
-		new webpack.SourceMapDevToolPlugin({
-			filename: "[file].map"
-		})
-	]
+	}
 })
 
 module.exports = new Promise(resolve => {

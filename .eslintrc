@@ -54,6 +54,7 @@
 				"enforceForRenamedProperties": false
 			}
 		],
-		"no-console": [0]
+		"no-console": [0],
+		"no-restricted-globals": "off"
 	}
 }

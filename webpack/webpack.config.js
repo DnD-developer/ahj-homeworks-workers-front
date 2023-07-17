@@ -24,7 +24,7 @@ module.exports = {
 		main: PATHS.app
 	},
 	output: {
-		filename: `${PATHS.assets}js/[name]-[contenthash].js`,
+		filename: `${PATHS.assets}js/[name].js`,
 		path: PATHS.dist,
 		clean: true
 	},
@@ -77,7 +77,7 @@ module.exports = {
 	},
 	plugins: [
 		new MiniCssExtractPlugin({
-			filename: `${PATHS.assets}css/[name]-[contenthash].css`
+			filename: `${PATHS.assets}css/[name].css`
 		}),
 		...PAGES.map(page => new HTMLWebpackPlugin({ hash: false, scriptLoading: "blocking", template: `${PAGES_DIR}/${page}`, minify: false }))
 	]
